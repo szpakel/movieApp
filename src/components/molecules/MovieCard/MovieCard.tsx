@@ -2,13 +2,13 @@ import { StyledDesc, Wrapper, StyledButton, ContentWrapper } from './MovieCard.s
 import { Movie } from '../../../types/MovieTypes';
 import FavIcon from '../../../assets/FavIcon.png';
 import { useState } from 'react';
-import FavIconFullfilled from '../../../assets/favIconFullFilled.png';
+import FavIconFullfilled from '../../../assets/FavIconFullFilled.png';
 
 function MovieCard({ title, date, imgSrc }: Movie) {
-  const [isFavourite, setFavouriteState] = useState(false);
+  const [isFavorite, setFavoriteState] = useState(false);
 
-  const handleFavouriteState = () => {
-    setFavouriteState((prev) => !prev);
+  const handleFavoriteState = () => {
+    setFavoriteState((prev) => !prev);
   }
 
   return (
@@ -19,8 +19,8 @@ function MovieCard({ title, date, imgSrc }: Movie) {
           <h3>{title}</h3>
           <p>{date}</p>
         </StyledDesc>
-        <StyledButton onClick={handleFavouriteState}>
-          {!isFavourite ? <img src={FavIcon} alt="FavIcon" /> : <img src={FavIconFullfilled} alt="FavIconFullfilled" />}
+        <StyledButton onClick={handleFavoriteState}>
+          {!isFavorite ? <img src={FavIcon} alt="FavIcon" /> : <img src={FavIconFullfilled} alt="FavIconFullfilled" />}
         </StyledButton>
       </ContentWrapper>
     </Wrapper>

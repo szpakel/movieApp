@@ -1,29 +1,8 @@
 import { StyledLabel } from "./SearchBar.styles";
-import { useState } from "react";
-import { searchForMovies } from "../../../services/api";
-import { Search } from "../../../types/SearchTypes";
+import { useMovies } from "../../../context/MovieContext";
 
-function SearchBar({ setMovies, setLoadingState }: Search) {
-  const [query, setQuery] = useState('');
-
-  const handleSearchMovies = async (queryValue: string) => {
-    if (query) {
-      setLoadingState(true);
-      try {
-        const searchedMovies = await searchForMovies(queryValue);
-        setMovies(searchedMovies);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setLoadingState(false)
-        setQuery('');
-      }
-    }
-  }
-
-  const handleQueryValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value)
-  }
+function SearchBar() {
+  const { handleQueryValue, handleSearchMovies, query } = useMovies()
 
   return (
     <StyledLabel>

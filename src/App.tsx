@@ -1,9 +1,8 @@
 import styled from "styled-components"
 import Navigation from "./components/organisms/Navigation/Navigation";
-import Footer from "./components/organisms/Footer/Footer";
 import { BrowserRouter, Route, Routes } from 'react-router';
 import Main from "./views/Main";
-import Favourites from "./views/Favourites";
+import Favorites from "./views/Favorites";
 
 const Wrapper = styled.div`
   display: flex;
@@ -16,15 +15,15 @@ const Wrapper = styled.div`
 function App() {
 
   return (
-    <Wrapper>
-      <BrowserRouter>
-        <Navigation />
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/favourites" element={<Favourites />} />
-        </Routes>
-      </BrowserRouter>
-    </Wrapper>
+      <Wrapper>
+        <BrowserRouter>
+          <Navigation />
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/favorites" element={<Favorites />} />
+          </Routes>
+        </BrowserRouter>
+      </Wrapper>
   )
 }
 

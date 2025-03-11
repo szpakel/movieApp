@@ -1,9 +1,9 @@
 import FavCardContainer from "../components/organisms/FavCardContainer/FavCardContainer"
 
-function Favourites() {
+function Favorites() {
   return (
     <FavCardContainer />
   )
 }
 
-export default Favourites
+export default Favorites

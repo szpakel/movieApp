@@ -1,32 +1,19 @@
 import MovieCard from '../../molecules/MovieCard/MovieCard';
-import { getPopularMovies } from '../../../services/api';
-import { useEffect, useState } from 'react';
-import { MovieApiType } from '../../../types/MovieTypes';
+import { useEffect } from 'react';
 import { ContainerWrapper } from './HomeCardContainer.styles';
 import SearchBar from '../../molecules/SearchBar/SearchBar';
+import { useMovies } from '../../../context/MovieContext';
 
 function CardContainer() {
-  const [movies, setMovies] = useState<Array<MovieApiType>>([]);
-  const [isLoading, setLoadingState] = useState(false);
+  const { movies, loadPopularMovies, isLoading} = useMovies();
 
   useEffect(() => {
-    setLoadingState(true);
-    const loadPopularMovies = async () => {
-      try {
-        const popularMovies = await getPopularMovies();
-        setLoadingState(false);
-        setMovies(popularMovies);
-      } catch (err) {
-        setLoadingState(false);
-        console.log(err);
-      }
-    };
     loadPopularMovies();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
-      <SearchBar setMovies={setMovies} setLoadingState={setLoadingState} />
+      <SearchBar />
       {isLoading ? <p>Loading movies...</p> : null}
       <ContainerWrapper>
         {movies.map((movie) => (

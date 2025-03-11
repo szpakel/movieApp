@@ -7,7 +7,7 @@ function Navigation() {
       <Title>Movie App</Title>
       <LinkWrapper>
         <StyledLink to="/">Home</StyledLink>
-        <StyledLink to="/favourites">Favourites</StyledLink>
+        <StyledLink to="/favorites">Favorites</StyledLink>
       </LinkWrapper>
     </NavWrapper>
   );
