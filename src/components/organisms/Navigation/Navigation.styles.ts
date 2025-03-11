@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router';
 
 export const NavWrapper = styled.div`
   display: flex;
@@ -9,10 +10,14 @@ export const NavWrapper = styled.div`
   margin-bottom: 60px;
   justify-content: space-between;
 `;
-export const Links = styled.div`
+export const LinkWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   color: #7572d1;
   width: 150px;
   margin-right: 30px;
 `;
+
+export const StyledLink = styled(Link)`
+
+`

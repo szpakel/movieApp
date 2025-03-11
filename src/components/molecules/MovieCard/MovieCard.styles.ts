@@ -29,3 +29,17 @@ export const StyledDesc = styled.div`
     color: grey;
   }
 `;
+
+export const StyledButton = styled.button`
+  width: 35px;
+  height: 30px;
+  background-color: #2A2A2A;
+  border: none;
+  cursor: pointer;
+`
+
+export const ContentWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`

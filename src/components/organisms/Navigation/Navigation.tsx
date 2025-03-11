@@ -1,14 +1,14 @@
-import { NavWrapper, Links } from './Navigation.styles';
+import { NavWrapper, StyledLink, LinkWrapper } from './Navigation.styles';
 import { Title } from '../../atoms/Title';
 
 function Navigation() {
   return (
     <NavWrapper>
       <Title>Movie App</Title>
-      <Links>
-        <a>Home</a>
-        <a>Favourites</a>
-      </Links>
+      <LinkWrapper>
+        <StyledLink to="/">Home</StyledLink>
+        <StyledLink to="/favourites">Favourites</StyledLink>
+      </LinkWrapper>
     </NavWrapper>
   );
 }

@@ -1,31 +1,34 @@
 import { StyledLabel } from "./SearchBar.styles";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { searchForMovies } from "../../../services/api";
 import { Search } from "../../../types/SearchTypes";
 
 function SearchBar({ setMovies, setLoadingState }: Search) {
   const [query, setQuery] = useState('');
-  const [clicked, setClickState] = useState(false);
-  
-  useEffect(() => {
-    setLoadingState(true);
-    const handleSearchMovies = async (queryValue: string) => {
+
+  const handleSearchMovies = async (queryValue: string) => {
+    if (query) {
+      setLoadingState(true);
       try {
         const searchedMovies = await searchForMovies(queryValue);
-        setLoadingState(false)
         setMovies(searchedMovies);
       } catch (err) {
-        setLoadingState(false)
         console.log(err);
+      } finally {
+        setLoadingState(false)
+        setQuery('');
       }
     }
-    handleSearchMovies(query);
-  }, [clicked])
+  }
+
+  const handleQueryValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value)
+  }
 
   return (
     <StyledLabel>
-      <input value={query} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)} type="text" placeholder="Search for movies..." />
-      <button onClick={() => setClickState((prev) => !prev)}>Search</button>
+      <input value={query} onChange={handleQueryValue} type="text" placeholder="Search for movies..." />
+      <button onClick={() => handleSearchMovies(query)}>Search</button>
     </StyledLabel>
   );
 }

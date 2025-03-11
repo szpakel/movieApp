@@ -1,12 +1,12 @@
 import MovieCard from '../../molecules/MovieCard/MovieCard';
 import { getPopularMovies } from '../../../services/api';
 import { useEffect, useState } from 'react';
-import { MovieApi } from '../../../types/MovieTypes';
-import { ContainerWrapper } from './CardContainer.styles';
+import { MovieApiType } from '../../../types/MovieTypes';
+import { ContainerWrapper } from './HomeCardContainer.styles';
 import SearchBar from '../../molecules/SearchBar/SearchBar';
 
 function CardContainer() {
-  const [movies, setMovies] = useState<Array<MovieApi>>([]);
+  const [movies, setMovies] = useState<Array<MovieApiType>>([]);
   const [isLoading, setLoadingState] = useState(false);
 
   useEffect(() => {
@@ -29,13 +29,12 @@ function CardContainer() {
       <SearchBar setMovies={setMovies} setLoadingState={setLoadingState} />
       {isLoading ? <p>Loading movies...</p> : null}
       <ContainerWrapper>
-        {/* <button onClick={() => console.log(movies[0])}></button> */}
-        {movies.map((_, i) => (
+        {movies.map((movie) => (
           <MovieCard
-            title={movies[i].title}
-            date={movies[i].release_date}
-            imgSrc={`https://image.tmdb.org/t/p/w500${movies[i].poster_path}`}
-            key={movies[i].id}
+            title={movie.title}
+            date={movie.release_date}
+            imgSrc={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            key={movie.id}
           />
         ))}
       </ContainerWrapper>
