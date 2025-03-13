@@ -5,7 +5,7 @@ import SearchBar from '../../molecules/SearchBar/SearchBar';
 import { useMovies } from '../../../context/MovieContext';
 
 function CardContainer() {
-  const { movies, loadPopularMovies, isLoading} = useMovies();
+  const { movies, loadPopularMovies, isLoading } = useMovies();
 
   useEffect(() => {
     loadPopularMovies();
@@ -17,12 +17,7 @@ function CardContainer() {
       {isLoading ? <p>Loading movies...</p> : null}
       <ContainerWrapper>
         {movies.map((movie) => (
-          <MovieCard
-            title={movie.title}
-            date={movie.release_date}
-            imgSrc={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-            key={movie.id}
-          />
+          <MovieCard key={movie.id} movie={movie} />
         ))}
       </ContainerWrapper>
     </>

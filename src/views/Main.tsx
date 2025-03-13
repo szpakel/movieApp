@@ -1,6 +1,5 @@
-import CardContainer from "../components/organisms/HomeCardContainer/HomeCardContainer"
-import styled from "styled-components";
-import { MoviesProvider } from "../context/MovieContext";
+import CardContainer from '../components/organisms/HomeCardContainer/HomeCardContainer';
+import styled from 'styled-components';
 
 const Wrapper = styled.div`
   display: flex;
@@ -13,11 +12,9 @@ const Wrapper = styled.div`
 function Main() {
   return (
     <Wrapper>
-      <MoviesProvider>
-        <CardContainer />
-      </MoviesProvider>
+      <CardContainer />
     </Wrapper>
-  )
+  );
 }
 
-export default Main
+export default Main;

@@ -1,8 +1,9 @@
-import styled from "styled-components"
-import Navigation from "./components/organisms/Navigation/Navigation";
+import styled from 'styled-components';
+import Navigation from './components/organisms/Navigation/Navigation';
 import { BrowserRouter, Route, Routes } from 'react-router';
-import Main from "./views/Main";
-import Favorites from "./views/Favorites";
+import Main from './views/Main';
+import Favorites from './views/Favorites';
+import { MoviesProvider } from './context/MovieContext';
 
 const Wrapper = styled.div`
   display: flex;
@@ -13,9 +14,9 @@ const Wrapper = styled.div`
 `;
 
 function App() {
-
   return (
-      <Wrapper>
+    <Wrapper>
+      <MoviesProvider>
         <BrowserRouter>
           <Navigation />
           <Routes>
@@ -23,8 +24,9 @@ function App() {
             <Route path="/favorites" element={<Favorites />} />
           </Routes>
         </BrowserRouter>
-      </Wrapper>
-  )
+      </MoviesProvider>
+    </Wrapper>
+  );
 }
 
-export default App
+export default App;

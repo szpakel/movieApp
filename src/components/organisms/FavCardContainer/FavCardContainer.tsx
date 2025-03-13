@@ -1,5 +1,6 @@
-import styled from "styled-components";
-import MovieCard from "../../molecules/MovieCard/MovieCard";
+import styled from 'styled-components';
+import MovieCard from '../../molecules/MovieCard/MovieCard';
+import { useMovies } from '../../../context/MovieContext';
 
 const ContainerWrapper = styled.div`
   display: grid;
@@ -11,22 +12,15 @@ const ContainerWrapper = styled.div`
 `;
 
 function FavCardContainer() {
+  const { favorites } = useMovies();
+
   return (
     <ContainerWrapper>
-      <MovieCard title="ajsdk" date="aksjdkaj" imgSrc=""></MovieCard>
-      <MovieCard title="ajsdk" date="aksjdkaj" imgSrc=""></MovieCard>
-      <MovieCard title="ajsdk" date="aksjdkaj" imgSrc=""></MovieCard>
-      <MovieCard title="ajsdk" date="aksjdkaj" imgSrc=""></MovieCard>
-      <MovieCard title="ajsdk" date="aksjdkaj" imgSrc=""></MovieCard>
-      <MovieCard title="ajsdk" date="aksjdkaj" imgSrc=""></MovieCard>
-      <MovieCard title="ajsdk" date="aksjdkaj" imgSrc=""></MovieCard>
-      <MovieCard title="ajsdk" date="aksjdkaj" imgSrc=""></MovieCard>
-      <MovieCard title="ajsdk" date="aksjdkaj" imgSrc=""></MovieCard>
-      <MovieCard title="ajsdk" date="aksjdkaj" imgSrc=""></MovieCard>
-      <MovieCard title="ajsdk" date="aksjdkaj" imgSrc=""></MovieCard>
-      <MovieCard title="ajsdk" date="aksjdkaj" imgSrc=""></MovieCard>
+      {favorites.map((movie) => (
+        <MovieCard movie={movie} key={movie.id} />
+      ))}
     </ContainerWrapper>
-  )
+  );
 }
 
-export default FavCardContainer
+export default FavCardContainer;

@@ -1,26 +1,28 @@
 import { StyledDesc, Wrapper, StyledButton, ContentWrapper } from './MovieCard.styles';
-import { Movie } from '../../../types/MovieTypes';
+import { MovieApi } from '../../../types/MovieTypes';
 import FavIcon from '../../../assets/FavIcon.png';
-import { useState } from 'react';
 import FavIconFullfilled from '../../../assets/FavIconFullFilled.png';
+import { useMovies } from '../../../context/MovieContext';
 
-function MovieCard({ title, date, imgSrc }: Movie) {
-  const [isFavorite, setFavoriteState] = useState(false);
+function MovieCard({ movie }: { movie: MovieApi}) {
+  const { isFavorite, handleAddFavoriteMovies, handleRemoveFavoriteMovies } = useMovies();
+  const favorite = isFavorite(movie.id);
 
-  const handleFavoriteState = () => {
-    setFavoriteState((prev) => !prev);
+  const onFavoriteClick = (movie: MovieApi) => {
+    if (favorite) handleRemoveFavoriteMovies(movie.id);
+    else handleAddFavoriteMovies(movie);
   }
 
   return (
     <Wrapper>
-      <img src={imgSrc} alt="Poster" />
+      <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt="Poster" />
       <ContentWrapper>
         <StyledDesc>
-          <h3>{title}</h3>
-          <p>{date}</p>
+          <h3>{movie.title}</h3>
+          <p>{movie.release_date}</p>
         </StyledDesc>
-        <StyledButton onClick={handleFavoriteState}>
-          {!isFavorite ? <img src={FavIcon} alt="FavIcon" /> : <img src={FavIconFullfilled} alt="FavIconFullfilled" />}
+        <StyledButton onClick={() => onFavoriteClick(movie)}>
+          {!favorite ? <img src={FavIcon} alt="FavIcon" /> : <img src={FavIconFullfilled} alt="FavIconFullfilled" />}
         </StyledButton>
       </ContentWrapper>
     </Wrapper>
