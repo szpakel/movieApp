@@ -16,9 +16,11 @@ function FavCardContainer() {
 
   return (
     <ContainerWrapper>
-      {favorites.map((movie) => (
-        <MovieCard movie={movie} key={movie.id} />
-      ))}
+      {favorites.map((movie) => {
+        if (movie.id) {
+          return <MovieCard movie={movie} key={movie.id} />
+        }
+      })}
     </ContainerWrapper>
   );
 }
