@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Movie, MoviesContextType } from '../types/MovieTypes';
 import { getPopularMovies } from '../services/api';
 import { searchForMovies } from '../services/api';
+import { useDebounce } from '../hooks/useDebounce';
 
 const MoviesContext = createContext<MoviesContextType | undefined>(undefined);
 
@@ -10,6 +11,7 @@ export const MoviesProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setLoadingState] = useState(false);
   const [query, setQuery] = useState('');
   const [favorites, setFavorites] = useState<Array<Movie>>([]);
+  const debounedQuery = useDebounce(query, 500);
 
   useEffect(() => {
     const localFavs = localStorage.getItem('favorites');
@@ -43,22 +45,22 @@ export const MoviesProvider = ({ children }: { children: React.ReactNode }) => {
     loadPopularMovies();
   }, []);
 
-  const handleSearchMovies = async (queryValue: string) => {
-    setLoadingState(true);
-    if (query) {
-      setLoadingState(true);
-      try {
-        const searchedMovies = await searchForMovies(queryValue);
-        setMovies(searchedMovies);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setLoadingState(false);
-        setQuery('');
+  useEffect(() => {
+    const handleSearchMovies = async (queryValue: string) => {
+      if (debounedQuery) {
+        setLoadingState(true);
+        try {
+          const searchedMovies = await searchForMovies(queryValue);
+          setMovies(searchedMovies);
+        } catch (err) {
+          console.log(err);
+        } finally {
+          setLoadingState(false);
+        }
       }
-    }
-  };
-
+    };
+    handleSearchMovies(debounedQuery);
+  }, [debounedQuery]);
 
   const handleAddFavoriteMovies = (movie: Movie) => {
     setFavorites((prev) =>
@@ -82,7 +84,6 @@ export const MoviesProvider = ({ children }: { children: React.ReactNode }) => {
     movies,
     isLoading,
     favorites,
-    handleSearchMovies,
     handleQueryValue,
     query,
     handleAddFavoriteMovies,

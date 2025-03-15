@@ -6,7 +6,7 @@ export const StyledLabel = styled.label`
   height: 50px;
 
   input {
-    width: 80%;
+    width: 100%;
     border: none;
     margin-right: 15px;
     border-radius: 3px;

@@ -10,7 +10,7 @@ export type MoviesContextType = {
   isLoading: boolean;
   query: string;
   favorites: Movie[];
-  handleSearchMovies: (queryValue: string) => Promise<void>;
+  // handleSearchMovies: (queryValue: string) => Promise<void>;
   handleQueryValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleAddFavoriteMovies: (movie: Movie) => void;
   handleRemoveFavoriteMovies: (movieId: string | number) => void;
