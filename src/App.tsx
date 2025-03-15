@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-function App() {
+export default function App() {
   return (
     <Wrapper>
       <MoviesProvider>
@@ -28,5 +28,3 @@ function App() {
     </Wrapper>
   );
 }
-
-export default App;

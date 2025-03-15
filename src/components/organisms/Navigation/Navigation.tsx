@@ -1,7 +1,7 @@
 import { NavWrapper, StyledLink, LinkWrapper } from './Navigation.styles';
 import { Title } from '../../atoms/Title';
 
-function Navigation() {
+export default function Navigation() {
   return (
     <NavWrapper>
       <Title>Movie App</Title>
@@ -12,5 +12,3 @@ function Navigation() {
     </NavWrapper>
   );
 }
-
-export default Navigation;

@@ -1,37 +1,47 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { MovieApi } from '../types/MovieTypes';
+import { Movie, MoviesContextType } from '../types/MovieTypes';
 import { getPopularMovies } from '../services/api';
 import { searchForMovies } from '../services/api';
-
-interface MoviesContextType {
-  movies: MovieApi[];
-  isLoading: boolean;
-  query: string;
-  favorites: MovieApi[];
-  handleSearchMovies: (queryValue: string) => Promise<void>;
-  loadPopularMovies: () => Promise<void>;
-  handleQueryValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleAddFavoriteMovies: (movie: MovieApi) => void;
-  handleRemoveFavoriteMovies: (movieId: string | number) => void;
-  isFavorite: (movieId: string | number) => boolean;
-}
 
 const MoviesContext = createContext<MoviesContextType | undefined>(undefined);
 
 export const MoviesProvider = ({ children }: { children: React.ReactNode }) => {
-  const [movies, setMovies] = useState<Array<MovieApi>>([]);
+  const [movies, setMovies] = useState<Array<Movie>>([]);
   const [isLoading, setLoadingState] = useState(false);
   const [query, setQuery] = useState('');
-  const [favorites, setFavorites] = useState<Array<MovieApi>>([]);
+  const [favorites, setFavorites] = useState<Array<Movie>>([]);
 
   useEffect(() => {
     const localFavs = localStorage.getItem('favorites');
-    if (localFavs) setFavorites([JSON.parse(localFavs)]);
+    if (localFavs) {
+      try {
+        setFavorites(JSON.parse(localFavs));
+      } catch (err) {
+        console.log(err);
+      }
+    }
   }, []);
 
   useEffect(() => {
     localStorage.setItem('favorites', JSON.stringify(favorites));
   }, [favorites]);
+
+  useEffect(() => {
+    const loadPopularMovies = async () => {
+      setLoadingState(true);
+      try {
+        const popularMovies = await getPopularMovies();
+        setLoadingState(false);
+        setMovies(popularMovies);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoadingState(false);
+      }
+    };
+
+    loadPopularMovies();
+  }, []);
 
   const handleSearchMovies = async (queryValue: string) => {
     setLoadingState(true);
@@ -49,21 +59,8 @@ export const MoviesProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const loadPopularMovies = async () => {
-    setLoadingState(true);
-    try {
-      const popularMovies = await getPopularMovies();
-      setLoadingState(false);
-      setMovies(popularMovies);
-    } catch (err) {
-      setLoadingState(false);
-      console.log(err);
-    } finally {
-      setLoadingState(false);
-    }
-  };
 
-  const handleAddFavoriteMovies = (movie: MovieApi) => {
+  const handleAddFavoriteMovies = (movie: Movie) => {
     setFavorites((prev) =>
       !favorites.includes(movie) ? [...prev, movie] : [...prev]
     );
@@ -86,7 +83,6 @@ export const MoviesProvider = ({ children }: { children: React.ReactNode }) => {
     isLoading,
     favorites,
     handleSearchMovies,
-    loadPopularMovies,
     handleQueryValue,
     query,
     handleAddFavoriteMovies,

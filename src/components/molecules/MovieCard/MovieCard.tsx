@@ -1,14 +1,14 @@
 import { StyledDesc, Wrapper, StyledButton, ContentWrapper } from './MovieCard.styles';
-import { MovieApi } from '../../../types/MovieTypes';
+import { Movie } from '../../../types/MovieTypes';
 import FavIcon from '../../../assets/FavIcon.png';
 import FavIconFullfilled from '../../../assets/FavIconFullFilled.png';
 import { useMovies } from '../../../context/MovieContext';
 
-function MovieCard({ movie }: { movie: MovieApi}) {
+export default function MovieCard({ movie }: { movie: Movie}) {
   const { isFavorite, handleAddFavoriteMovies, handleRemoveFavoriteMovies } = useMovies();
   const favorite = isFavorite(movie.id);
 
-  const onFavoriteClick = (movie: MovieApi) => {
+  const onFavoriteClick = (movie: Movie) => {
     if (favorite) handleRemoveFavoriteMovies(movie.id);
     else handleAddFavoriteMovies(movie);
   }
@@ -28,5 +28,3 @@ function MovieCard({ movie }: { movie: MovieApi}) {
     </Wrapper>
   );
 }
-
-export default MovieCard;

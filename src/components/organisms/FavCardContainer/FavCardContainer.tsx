@@ -11,7 +11,7 @@ const ContainerWrapper = styled.div`
   margin-top: 40px;
 `;
 
-function FavCardContainer() {
+export default function FavCardContainer() {
   const { favorites } = useMovies();
 
   return (
@@ -24,5 +24,3 @@ function FavCardContainer() {
     </ContainerWrapper>
   );
 }
-
-export default FavCardContainer;

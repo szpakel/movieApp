@@ -10,12 +10,10 @@ const Wrapper = styled.div`
   padding: 20px;
 `;
 
-function Footer() {
+export default function Footer() {
   return (
     <Wrapper>
       <p>Get info</p>
     </Wrapper>
   );
 }
-
-export default Footer;

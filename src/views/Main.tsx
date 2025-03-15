@@ -9,12 +9,10 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-function Main() {
+export default function Main() {
   return (
     <Wrapper>
       <CardContainer />
     </Wrapper>
   );
 }
-
-export default Main;

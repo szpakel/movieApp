@@ -1,7 +1,7 @@
 import { StyledLabel } from "./SearchBar.styles";
 import { useMovies } from "../../../context/MovieContext";
 
-function SearchBar() {
+export default function SearchBar() {
   const { handleQueryValue, handleSearchMovies, query } = useMovies()
 
   return (
@@ -11,5 +11,3 @@ function SearchBar() {
     </StyledLabel>
   );
 }
-
-export default SearchBar;
